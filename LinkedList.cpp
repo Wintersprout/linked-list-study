@@ -44,27 +44,24 @@ sll::node* SinglyLinkedList::searchNode(int pos) {
 //Removes and deletes a node from a certain position of the list.
 void SinglyLinkedList::removeNode(int pos) {
     sll::node* removed = searchNode(pos);
-    //if the value is not in the list
+    //if the argument is out of range
     if (removed == nullptr) {
         return;
     }
-    //if the value is the head of the list
-    if (removed == this->head) {
-        this->head = this->head->link;
-        this->size -= 1;
-        delete removed;
-        return;
-    }
-    //search the node if it is on the list and not at its head
-    sll::node* previous = this->head;
-    while (previous->link != removed) {
-        previous = previous->link;
-    }
 
-    previous->link = removed->link;
+    if (removed != this->head) {
+        sll::node* previous = this->head;
+
+        while (previous->link != removed) {
+            previous = previous->link;
+        }
+        previous->link = removed->link;
+    } 
+    else { 
+        this->head = this->head->link;
+    }    
     delete removed;
     this->size -= 1;
-    return;
 }
 //Prints the list and its current size.
 void SinglyLinkedList::displayList() {
@@ -145,26 +142,19 @@ dll::node* DoublyLinkedList::searchNode(int pos) {
 void DoublyLinkedList::removeNode(int pos) {
     dll::node* removed = searchNode(pos);
 
-    //if the value is not in the list
-    if (removed == nullptr) {
+    if (removed == nullptr) { //argument is out of range
         return;
     }
-    //if the value is the head of the list
-    if (removed == this->head) {
-        this->head = this->head->back;
-        this->size -= 1;
-        delete removed;
-        return;
+    if ((removed != this->head) && (removed != this->tail)) { //not head or tail
+        removed->back->fwd = removed->fwd;
+        removed->fwd->back = removed->back;
+    } else if (removed == this->head) { //head
+        this->head = removed->back;
+        removed->back->fwd = removed->fwd;
+    } else if (removed == this->tail) { //tail
+        this->tail = removed->fwd;
+        removed->fwd->back = removed->back;
     }
-    //if the value is the tail of the list
-    if (removed == this->tail) {
-        this->tail = this->tail->fwd;
-        this->size -= 1;
-        delete removed;
-        return;
-    }
-    removed->back->fwd = removed->fwd;
-    removed->fwd->back = removed->back;
     delete removed;
     this->size -= 1;
 }
@@ -173,7 +163,7 @@ void DoublyLinkedList::displayList() {
     dll::node* next = this->head;
 
     while (next != nullptr) {
-        std::cout << next->data << " <-> ";
+        std::cout << next->data << " <> ";
         next = next->back;
     }
     std::cout << " List size: " << size << "\n";
