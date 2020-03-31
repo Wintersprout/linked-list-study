@@ -1,4 +1,3 @@
-#pragma once
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
@@ -45,9 +44,35 @@ public:
 	dll::node* getTail();
 	void addAtHead(int value);
 	void addAtTail(int value);
-	dll::node* searchNode(int value);
-	void removeNode(int value);
+	dll::node* searchNode(int pos);
+	void removeNode(int pos);
 	void displayList();
 };
 
+class Stack {
+private:
+	sll::node * top;
+	int size;
+
+public:
+	Stack();
+	int getSize();
+	void push(int value);
+	int pop();
+	void displayStack();
+};
+
+class Queue {
+private:
+    sll::node* front;
+    sll::node* back;
+    int size;
+
+public:
+	Queue();
+	int getSize();
+	void enqueue(int value);
+	int dequeue();
+	void displayQueue();
+};
 #endif //LINKEDLIST_H
