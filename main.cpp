@@ -1,5 +1,10 @@
 #include "LinkedList.h"
+#include "Queue.h"
+#include "Stack.h"
+#include "DoublyLinkedList.h"
 #include <iostream>
+
+using namespace reno_ds;
 
 int main() {
     //Singly list method check
@@ -59,7 +64,7 @@ int main() {
 
     for (int i = 10; i < 16; ++i) {
         box.push(i);
-        box.displayStack();
+        box.show();
     }
     
     std::cout << "Popping all stacked items... ";
@@ -67,7 +72,7 @@ int main() {
             std::cout << box.pop() << "... ";
     }
     std::cout << "\n";
-    box.displayStack();
+    box.show();
         
     //Queue tests
     Queue tunnel;
@@ -75,7 +80,7 @@ int main() {
 
     for (int i = 20; i < 26; ++i) {
         tunnel.enqueue(i);
-        tunnel.displayQueue();
+        tunnel.show();
     }
     
     std::cout << "Dequeueing all items... ";
@@ -83,6 +88,6 @@ int main() {
         std::cout << tunnel.dequeue() << "... ";
     }
     std::cout << "\n";
-    tunnel.displayQueue();
+    tunnel.show();
     return EXIT_SUCCESS;
 }
